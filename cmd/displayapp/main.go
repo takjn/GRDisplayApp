@@ -53,14 +53,14 @@ func main() {
 		path = filepath.Join(path, filename)
 	}
 
-	// Find a Mbed CDC &serial.Mode{}
+	// Find a Mbed CDC
 	name, err := findDevice()
 	if err != nil {
 		log.Fatalf("failed to find device: %v", err)
 		os.Exit(1)
 	}
 
-	// Open the CDC &serial.Mode{}
+	// Open the CDC
 	port, err := serial.Open(name, &serial.Mode{})
 	if err != nil {
 		log.Fatalf("failed to open device: %v", err)
