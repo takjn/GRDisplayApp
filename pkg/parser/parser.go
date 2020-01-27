@@ -60,6 +60,7 @@ func GetData(port io.Reader) ([]byte, error) {
 				idx = 0
 			} else {
 				buff = buff[idx:]
+				idx = 0
 			}
 		}
 
