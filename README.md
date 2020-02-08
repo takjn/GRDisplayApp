@@ -12,7 +12,7 @@ To record the video as MP4 file, run the following command. `/tmp/out.mp4` will 
 
 To display the video in the window, run the following command.
 ```
-./displayapp | gst-launch-1.0 fdsrc fd=0 ! decodebin ! progressreport update-freq=1 ! videoscale ! video/x-raw,width=640,height=480 ! queue ! videoconvert ! videorate ! video/x-raw, framerate=30/1 ! ximagesink
+./displayapp | ffplay -i -
 ```
 
 To output jpeg files every 1 seconds, run the following command. `/tmp/test*.jpg` will be created.
