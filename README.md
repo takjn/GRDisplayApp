@@ -20,6 +20,20 @@ To output jpeg files every 1 seconds, run the following command. `/tmp/test*.jpg
 ./displayapp -p /tmp
 ```
 
+To use [v4l2loopback](https://github.com/umlaeute/v4l2loopback), run the following commands.
+First start v4l2loopback with `modprobe` command. Then confirm your loopback device with `v4l2-ctl` command.
+
+```
+sudo modprobe v4l2loopback exclusive_caps=1
+v4l2-ctl --list-devices
+```
+
+In my case, the loopback device was `/dev/video1`.
+In the case, run the following command.
+```
+./displayapp | ffmpeg -y -f image2pipe -c:v mjpeg -r 30 -i - -pix_fmt yuyv422 -f v4l2 /dev/video1
+```
+
 **NOTE:**
 Please change the width, height and framerate if needed. 
 
