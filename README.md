@@ -2,22 +2,23 @@
 DisplayApp is an application that displays the camera image sent by USB CDC.
 
 ## How to build
-run `make build` command. `displayapp` will be build.
+You can use the prebuilt binaries in `bin` directory. 
+Or run `make build` command. `displayapp` will be build in `bin` directory.
 
-## How to use
+## How to use in Linux
 To record the video as MP4 file, run the following command. `/tmp/out.mp4` will be created.
 ```
-./displayapp | ffmpeg -y -f image2pipe -c:v mjpeg -r 30 -i - -vcodec libx264 /tmp/out.mp4
+displayapp | ffmpeg -y -f image2pipe -c:v mjpeg -r 30 -i - -vcodec libx264 /tmp/out.mp4
 ```
 
 To display the video in the window, run the following command.
 ```
-./displayapp | ffplay -i -
+displayapp | ffplay -i -
 ```
 
 To output jpeg files every 1 seconds, run the following command. `/tmp/test*.jpg` will be created.
 ```
-./displayapp -p /tmp
+displayapp -p /tmp
 ```
 
 To use [v4l2loopback](https://github.com/umlaeute/v4l2loopback), run the following commands.
@@ -34,8 +35,18 @@ In the case, run the following command.
 ./displayapp | ffmpeg -y -f image2pipe -c:v mjpeg -r 30 -i - -pix_fmt yuyv422 -f v4l2 /dev/video1
 ```
 
-**NOTE:**
-Please change the width, height and framerate if needed. 
+## How to use in Windows
+Use `-d` option to specify the COM port. Do not forget to install `ffmpeg`. 
+
+For example, To record the video as MP4 file, run the following command.
+```
+displayapp.exe -d COM5 | ffmpeg -y -f image2pipe -c:v mjpeg -r 30 -i - -vcodec libx264 out.mp4
+```
+
+To display the video in the window, run the following command.
+```
+displayapp.exe -d COM5 | ffplay -i -
+```
 
 ## Reference
 - [GR-LYCHEE](https://www.renesas.com/us/ja/products/gadget-renesas/boards/gr-lychee.html)

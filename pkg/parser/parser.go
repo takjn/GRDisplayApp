@@ -5,8 +5,11 @@ import (
 	"io"
 )
 
+var (
+	buff = make([]byte, 1024*1024)
+)
+
 func readData(port io.Reader, data []byte) ([]byte, error) {
-	buff := make([]byte, 1024*256)
 	n, err := port.Read(buff)
 	if err != nil {
 		return data, err

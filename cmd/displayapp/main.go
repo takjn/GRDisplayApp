@@ -39,8 +39,9 @@ func findDevice() (string, error) {
 }
 
 func main() {
-	var path, filename string
+	var path, filename, device string
 	var interval int
+	flag.StringVar(&device, "d", "", "device port")
 	flag.StringVar(&path, "p", "", "output path")
 	flag.StringVar(&filename, "f", "test", "filename")
 	flag.IntVar(&interval, "i", 1000, "jpeg interval (ms)")
@@ -54,14 +55,17 @@ func main() {
 	}
 
 	// Find a Mbed CDC
-	name, err := findDevice()
-	if err != nil {
-		log.Fatalf("failed to find device: %v", err)
-		os.Exit(1)
+	if device == "" {
+		name, err := findDevice()
+		if err != nil {
+			log.Fatalf("failed to find device: %v", err)
+			os.Exit(1)
+		}
+		device = name
 	}
 
 	// Open the CDC
-	port, err := serial.Open(name, &serial.Mode{})
+	port, err := serial.Open(device, &serial.Mode{})
 	if err != nil {
 		log.Fatalf("failed to open device: %v", err)
 		os.Exit(1)
