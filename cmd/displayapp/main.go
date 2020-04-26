@@ -79,6 +79,14 @@ func main() {
 			if err != nil {
 				return
 			}
+			if data[0] != 0xFF || data[1] != 0xD8 {
+				// In the case if the data looks not JPEG data.
+				// Not only JPEG data but also you can send various data by
+				// display_app.SendJpeg(). You can parse the data here.
+				msg := fmt.Sprintf("received non-jpeg data: len=%d\r\n", len(data))
+				os.Stderr.Write([]byte(msg))
+				continue
+			}
 			if binaryMode {
 				os.Stdout.Write(data)
 			} else {
